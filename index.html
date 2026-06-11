@@ -322,14 +322,14 @@
 <div class="card">
   <div class="card-title">Monete <span class="denom-tag tag-coin">spiccioli</span></div>
   <div class="grid grid-3">
-    <div class="field"><label>1 cent</label><input type="number" id="m001" placeholder="0.00" step="0.01" min="0" required></div>
-    <div class="field"><label>2 cent</label><input type="number" id="m002" placeholder="0.00" step="0.01" min="0" required></div>
-    <div class="field"><label>5 cent</label><input type="number" id="m005" placeholder="0.00" step="0.01" min="0" required></div>
-    <div class="field"><label>10 cent</label><input type="number" id="m010" placeholder="0.00" step="0.01" min="0" required></div>
-    <div class="field"><label>20 cent</label><input type="number" id="m020" placeholder="0.00" step="0.01" min="0" required></div>
-    <div class="field"><label>50 cent</label><input type="number" id="m050" placeholder="0.00" step="0.01" min="0" required></div>
-    <div class="field"><label>1 €</label><input type="number" id="m100" placeholder="0.00" step="0.01" min="0" required></div>
-    <div class="field"><label>2 €</label><input type="number" id="m200" placeholder="0.00" step="0.01" min="0" required></div>
+    <div class="field"><label>1 cent</label><input type="number" id="m001" placeholder="0" step="0.01" min="0" required></div>
+    <div class="field"><label>2 cent</label><input type="number" id="m002" placeholder="0" step="0.01" min="0" required></div>
+    <div class="field"><label>5 cent</label><input type="number" id="m005" placeholder="0" step="0.01" min="0" required></div>
+    <div class="field"><label>10 cent</label><input type="number" id="m010" placeholder="0" step="0.01" min="0" required></div>
+    <div class="field"><label>20 cent</label><input type="number" id="m020" placeholder="0" step="0.01" min="0" required></div>
+    <div class="field"><label>50 cent</label><input type="number" id="m050" placeholder="0" step="0.01" min="0" required></div>
+    <div class="field"><label>1 €</label><input type="number" id="m100" placeholder="0" step="0.01" min="0" required></div>
+    <div class="field"><label>2 €</label><input type="number" id="m200" placeholder="0" step="0.01" min="0" required></div>
   </div>
 </div>
 
@@ -337,13 +337,13 @@
 <div class="card">
   <div class="card-title">Banconote <span class="denom-tag tag-note">cartamoneta</span></div>
   <div class="grid grid-3">
-    <div class="field"><label>5 €</label><input type="number" id="b005" placeholder="0.00" step="0.01" min="0" required></div>
-    <div class="field"><label>10 €</label><input type="number" id="b010" placeholder="0.00" step="0.01" min="0" required></div>
-    <div class="field"><label>20 €</label><input type="number" id="b020" placeholder="0.00" step="0.01" min="0" required></div>
-    <div class="field"><label>50 €</label><input type="number" id="b050" placeholder="0.00" step="0.01" min="0" required></div>
-    <div class="field"><label>100 €</label><input type="number" id="b100" placeholder="0.00" step="0.01" min="0" required></div>
-    <div class="field"><label>200 €</label><input type="number" id="b200" placeholder="0.00" step="0.01" min="0" required></div>
-    <div class="field"><label>500 €</label><input type="number" id="b500" placeholder="0.00" step="0.01" min="0" required></div>
+    <div class="field"><label>5 €</label><input type="number" id="b005" placeholder="0" step="0.01" min="0" required></div>
+    <div class="field"><label>10 €</label><input type="number" id="b010" placeholder="0" step="0.01" min="0" required></div>
+    <div class="field"><label>20 €</label><input type="number" id="b020" placeholder="0" step="0.01" min="0" required></div>
+    <div class="field"><label>50 €</label><input type="number" id="b050" placeholder="0" step="0.01" min="0" required></div>
+    <div class="field"><label>100 €</label><input type="number" id="b100" placeholder="0" step="0.01" min="0" required></div>
+    <div class="field"><label>200 €</label><input type="number" id="b200" placeholder="0" step="0.01" min="0" required></div>
+    <div class="field"><label>500 €</label><input type="number" id="b500" placeholder="0" step="0.01" min="0" required></div>
   </div>
 </div>
 
@@ -447,10 +447,23 @@
 
     const g = id => parseFloat(document.getElementById(id).value) || 0;
 
-    const monete = g('m001')+g('m002')+g('m005')+g('m010')+
-                   g('m020')+g('m050')+g('m100')+g('m200');
-    const banconote = g('b005')+g('b010')+g('b020')+g('b050')+
-                      g('b100')+g('b200')+g('b500');
+    const monete = 
+    g('m001')*0.01+
+    g('m002')*0.02+
+    g('m005')*0.05+
+    g('m010')*0.10+
+    g('m020')*0.20+
+    g('m050')*0.50+
+    g('m100')*1+
+    g('m200')*2;
+    const banconote = 
+    g('b005')*5+
+    g('b010')*10+
+    g('b020')*20+
+    g('b050')*50+
+    g('b100')*100+
+    g('b200')*200+
+    g('b500')*500;
     const fondo = g('fondo');
     const pos   = g('pos');
 

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Renato — Prese, ma a modo suo</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Work+Sans:wght@400;600&display=swap">
+<style>
+:root{--wall:#1f3a4d;--wall2:#18303f;--plate:#f3efe6;--hot:#f2c230;--ink:#14110f;--txt:#e9eef1;--mut:#a9bcc7;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*:before,*:after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--wall);color:var(--txt);font:400 1.05rem/1.6 "Work Sans",system-ui,sans-serif}
+h1,h2{font-family:"Bowlby One",Impact,sans-serif;font-weight:400;line-height:1.02;margin:0}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+header{padding:18px 0;display:flex;justify-content:space-between;align-items:center}
+header b{font-family:"Bowlby One",Impact,sans-serif;font-size:1.3rem;font-weight:400}
+header a{color:var(--hot);text-decoration:none;font-weight:600}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center;padding:34px 0 70px}
+.hero h1{font-size:clamp(2.6rem,7vw,5rem);color:var(--plate)}
+.hero p{max-width:34em;color:var(--mut);margin:20px 0 26px}
+button.cta,a.cta{background:var(--hot);color:var(--ink);border:0;border-radius:8px;padding:14px 22px;font:600 1rem "Work Sans",sans-serif;cursor:pointer;text-decoration:none;display:inline-block}
+button.cta:focus-visible,a.cta:focus-visible,#socket:focus-visible{outline:3px solid #fff;outline-offset:3px}
+#msg{min-height:3.2em;margin-top:16px;color:var(--hot);font-weight:600}
+.stage{text-align:center}
+#socket{background:none;border:0;padding:0;cursor:pointer;width:min(100%,320px)}
+#socket svg{width:100%;height:auto;display:block}
+.crack2{opacity:0;transition:opacity .25s}
+.worse .crack2{opacity:1}
+.shake{animation:sh .35s}
+@keyframes sh{25%{transform:translateX(-5px) rotate(-1deg)}75%{transform:translateX(5px) rotate(1deg)}}
+.count{margin-top:10px;color:var(--mut);font-size:.95rem}
+section{padding:60px 0;border-top:2px solid var(--wall2)}
+section h2{font-size:clamp(1.8rem,4vw,2.8rem);margin-bottom:28px;color:var(--plate)}
+.rows{display:grid;gap:0}
+.row{display:grid;grid-template-columns:200px 1fr;gap:20px;padding:18px 0;border-bottom:1px solid #35566b}
+.row b{color:var(--hot)}
+.row span{color:var(--mut)}
+blockquote{margin:0;max-width:30em;font-size:1.5rem;line-height:1.35;color:var(--plate);border-left:6px solid var(--hot);padding-left:22px}
+cite{display:block;margin-top:14px;font-size:1rem;color:var(--mut);font-style:normal}
+.tape{background:repeating-linear-gradient(-45deg,var(--hot) 0 18px,var(--ink) 18px 36px);height:16px}
+footer{padding:40px 0 60px;color:var(--mut);font-size:.9rem}
+@media(max-width:760px){.hero{grid-template-columns:1fr}.row{grid-template-columns:1fr;gap:2px}}
+@media(prefers-reduced-motion:reduce){.shake{animation:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><b>Renato</b><a href="#contatti">Contattami</a></header>
+
+<div class="hero">
+<div>
+<h1>Renato. La presa era già rotta a metà.</h1>
+<p>Renato si occupa di prese, interruttori e di tutto ciò che sporge dal muro. Quando arriva lui, la presa è già un po' messa male. Quando se ne va, anche.</p>
+<button class="cta" id="go">Prova a usare la presa</button>
+<div id="msg" aria-live="polite">La presa è lì. Sembra stabile. Non lo è.</div>
+</div>
+<div class="stage">
+<button id="socket" aria-label="Presa di corrente rotta a metà: clicca per romperla">
+<svg viewBox="0 0 300 300" id="svg">
+<rect x="20" y="20" width="260" height="260" rx="34" fill="#f3efe6"/>
+<rect x="34" y="34" width="232" height="232" rx="26" fill="none" stroke="#d6d0c2" stroke-width="3"/>
+<circle cx="150" cy="150" r="82" fill="#e4dfd1"/>
+<rect x="104" y="124" width="14" height="52" rx="4" fill="#14110f"/>
+<rect x="182" y="124" width="14" height="52" rx="4" fill="#14110f"/>
+<circle cx="150" cy="198" r="9" fill="#14110f"/>
+<polygon points="20,20 118,20 96,70 128,104 100,150 126,196 92,238 70,280 20,280" fill="#1f3a4d"/>
+<polyline points="118,20 96,70 128,104 100,150 126,196 92,238 70,280" fill="none" stroke="#8a8372" stroke-width="3"/>
+<polyline class="crack2" points="150,60 172,98 158,128 196,160 176,202 214,240" fill="none" stroke="#14110f" stroke-width="4" stroke-linejoin="round"/>
+<polyline class="crack2" points="250,34 232,76 244,104" fill="none" stroke="#14110f" stroke-width="3"/>
+<circle cx="45" cy="45" r="7" fill="#b9b2a2"/>
+<circle cx="255" cy="255" r="7" fill="#b9b2a2"/>
+</svg>
+</button>
+<div class="count">Prese rotte da Renato oggi: <b id="n">0</b></div>
+</div>
+</div>
+</div>
+
+<div class="tape"></div>
+
+<section>
+<div class="wrap">
+<h2>Cosa fa Renato</h2>
+<div class="rows">
+<div class="row"><b>Prese</b><span>Tocca, spinge, guarda. Se era già rotta a metà, la porta a tre quarti.</span></div>
+<div class="row"><b>Interruttori</b><span>Funzionano finché Renato non li accende.</span></div>
+<div class="row"><b>Piccole riparazioni</b><span>Le fa lui. Poi si chiama qualcun altro.</span></div>
+<div class="row"><b>Consulenza</b><span>"Io l'ho solo toccata." Gratis, e in abbondanza.</span></div>
+</div>
+</div>
+</section>
+
+<section>
+<div class="wrap">
+<h2>Dicono di lui</h2>
+<blockquote>Papà non l'ha rotta. Era già rotta a metà. Lui ha solo finito il lavoro.
+<cite>Il figlio di Renato, testimone dei fatti</cite></blockquote>
+</div>
+</section>
+
+<section id="contatti">
+<div class="wrap">
+<h2>Contatta Renato</h2>
+<p style="max-width:32em;color:var(--mut);margin:0 0 22px">Hai una presa in buone condizioni? Meglio non dirgli dove sta. Hai una presa già rotta? Chiama un elettricista, poi chiama Renato per raccontargli com'è andata.</p>
+<a class="cta" href="mailto:renato@example.com">Scrivi a Renato</a>
+</div>
+</section>
+
+<footer><div class="wrap">© Renato. Nessuna presa è stata danneggiata per questo sito. Una sì, ma era già rotta.</div></footer>
+
+<script>
+(function(){
+var lines=["Ecco: adesso è rotta a tre quarti.","Era già rotta a metà. Giuro.","Il figlio conferma: non è colpa di Renato.","Un'altra crepa. Ma la prima c'era già.","Renato dice che l'ha solo toccata.","Ormai è una questione di principio."];
+var n=0,i=0,el=document.getElementById('n'),msg=document.getElementById('msg'),sock=document.getElementById('socket');
+function hit(){
+n++;el.textContent=n;
+msg.textContent=lines[i++%lines.length];
+sock.classList.remove('shake');void sock.offsetWidth;sock.classList.add('shake');
+if(n>=2)document.getElementById('svg').classList.add('worse');
+}
+sock.addEventListener('click',hit);
+document.getElementById('go').addEventListener('click',hit);
+})();
+</script>
+</body>
+</html>

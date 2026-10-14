@@ -1,127 +1,543 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Renato — Prese, ma a modo suo</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Work+Sans:wght@400;600&display=swap">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chiusura Cassa</title>
 <style>
-:root{--wall:#1f3a4d;--wall2:#18303f;--plate:#f3efe6;--hot:#f2c230;--ink:#14110f;--txt:#e9eef1;--mut:#a9bcc7;
-box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-*,*:before,*:after{box-sizing:inherit}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background:var(--wall);color:var(--txt);font:400 1.05rem/1.6 "Work Sans",system-ui,sans-serif}
-h1,h2{font-family:"Bowlby One",Impact,sans-serif;font-weight:400;line-height:1.02;margin:0}
-.wrap{max-width:1000px;margin:0 auto;padding:0 22px}
-header{padding:18px 0;display:flex;justify-content:space-between;align-items:center}
-header b{font-family:"Bowlby One",Impact,sans-serif;font-size:1.3rem;font-weight:400}
-header a{color:var(--hot);text-decoration:none;font-weight:600}
-.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center;padding:34px 0 70px}
-.hero h1{font-size:clamp(2.6rem,7vw,5rem);color:var(--plate)}
-.hero p{max-width:34em;color:var(--mut);margin:20px 0 26px}
-button.cta,a.cta{background:var(--hot);color:var(--ink);border:0;border-radius:8px;padding:14px 22px;font:600 1rem "Work Sans",sans-serif;cursor:pointer;text-decoration:none;display:inline-block}
-button.cta:focus-visible,a.cta:focus-visible,#socket:focus-visible{outline:3px solid #fff;outline-offset:3px}
-#msg{min-height:3.2em;margin-top:16px;color:var(--hot);font-weight:600}
-.stage{text-align:center}
-#socket{background:none;border:0;padding:0;cursor:pointer;width:min(100%,320px)}
-#socket svg{width:100%;height:auto;display:block}
-.crack2{opacity:0;transition:opacity .25s}
-.worse .crack2{opacity:1}
-.shake{animation:sh .35s}
-@keyframes sh{25%{transform:translateX(-5px) rotate(-1deg)}75%{transform:translateX(5px) rotate(1deg)}}
-.count{margin-top:10px;color:var(--mut);font-size:.95rem}
-section{padding:60px 0;border-top:2px solid var(--wall2)}
-section h2{font-size:clamp(1.8rem,4vw,2.8rem);margin-bottom:28px;color:var(--plate)}
-.rows{display:grid;gap:0}
-.row{display:grid;grid-template-columns:200px 1fr;gap:20px;padding:18px 0;border-bottom:1px solid #35566b}
-.row b{color:var(--hot)}
-.row span{color:var(--mut)}
-blockquote{margin:0;max-width:30em;font-size:1.5rem;line-height:1.35;color:var(--plate);border-left:6px solid var(--hot);padding-left:22px}
-cite{display:block;margin-top:14px;font-size:1rem;color:var(--mut);font-style:normal}
-.tape{background:repeating-linear-gradient(-45deg,var(--hot) 0 18px,var(--ink) 18px 36px);height:16px}
-footer{padding:40px 0 60px;color:var(--mut);font-size:.9rem}
-@media(max-width:760px){.hero{grid-template-columns:1fr}.row{grid-template-columns:1fr;gap:2px}}
-@media(prefers-reduced-motion:reduce){.shake{animation:none}}
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap');
+
+  :root {
+    --bg:        #0d1117;
+    --surface:   #161b22;
+    --surface2:  #1e2530;
+    --border:    #2a3444;
+    --gold:      #c9a84c;
+    --gold-soft: #e8c97a;
+    --gold-dim:  rgba(201,168,76,0.12);
+    --text:      #e6edf3;
+    --text-dim:  #7d8590;
+    --green:     #3fb950;
+    --blue:      #58a6ff;
+    --red:       #f85149;
+    --radius:    12px;
+    --radius-sm: 8px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 24px 16px 60px;
+  }
+
+  /* ── Header ── */
+  header {
+    text-align: center;
+    margin-bottom: 36px;
+  }
+  .logo-line {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+  .logo-icon {
+    width: 40px; height: 40px;
+    background: var(--gold-dim);
+    border: 1.5px solid var(--gold);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+  }
+  h1 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(20px, 5vw, 28px);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--gold-soft);
+  }
+  .subtitle {
+    font-size: 13px;
+    color: var(--text-dim);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ── Card ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 20px;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .card-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── Grid ── */
+  .grid { display: grid; gap: 14px; }
+  .grid-2 { grid-template-columns: 1fr 1fr; }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 540px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 360px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  }
+
+  /* ── Field ── */
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-dim);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .field input {
+    background: var(--surface2);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 10px 12px;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    width: 100%;
+    -moz-appearance: textfield;
+  }
+  .field input::-webkit-outer-spin-button,
+  .field input::-webkit-inner-spin-button { -webkit-appearance: none; }
+  .field input:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(201,168,76,0.15);
+  }
+  .field input.error {
+    border-color: var(--red);
+    box-shadow: 0 0 0 3px rgba(248,81,73,0.15);
+  }
+  .field input.ok { border-color: var(--green); }
+
+  /* date field */
+  .field input[type="date"] { color-scheme: dark; }
+
+  /* ── Denom tag ── */
+  .denom-tag {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 4px;
+    vertical-align: middle;
+  }
+  .tag-coin { background: rgba(88,166,255,0.15); color: var(--blue); }
+  .tag-note { background: rgba(63,185,80,0.15); color: var(--green); }
+
+  /* ── Button ── */
+  .btn-wrap {
+    max-width: 720px;
+    margin: 0 auto 24px;
+  }
+  button.calc {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #c9a84c, #a8862e);
+    border: none;
+    border-radius: var(--radius);
+    color: #0d1117;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: opacity 0.15s, transform 0.1s;
+  }
+  button.calc:hover { opacity: 0.9; }
+  button.calc:active { transform: scale(0.99); }
+
+  /* ── Results ── */
+  .results {
+    max-width: 720px;
+    margin: 0 auto 24px;
+    display: none;
+  }
+  .results.visible { display: block; }
+  .result-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+  @media (max-width: 560px) {
+    .result-grid { grid-template-columns: 1fr; }
+  }
+  .result-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 16px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .result-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .result-card.total::before  { background: linear-gradient(90deg, var(--gold), var(--gold-soft)); }
+  .result-card.cash::before   { background: linear-gradient(90deg, var(--blue), #79c0ff); }
+  .result-card.pos::before    { background: linear-gradient(90deg, var(--green), #7ee787); }
+  .result-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 10px;
+  }
+  .result-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(20px, 4vw, 28px);
+    font-weight: 700;
+    line-height: 1;
+  }
+  .result-card.total .result-value  { color: var(--gold-soft); }
+  .result-card.cash  .result-value  { color: var(--blue); }
+  .result-card.pos   .result-value  { color: var(--green); }
+
+  /* ── Mail button ── */
+  .btn-mail {
+    width: 100%;
+    padding: 14px;
+    background: transparent;
+    border: 1.5px solid var(--gold);
+    border-radius: var(--radius);
+    color: var(--gold-soft);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    transition: background 0.15s, color 0.15s;
+    letter-spacing: 0.03em;
+  }
+  .btn-mail:hover { background: var(--gold-dim); }
+  .btn-mail:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* ── Toast ── */
+  #toast {
+    position: fixed;
+    bottom: 24px; left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 12px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    transition: transform 0.3s ease;
+    z-index: 100;
+    white-space: nowrap;
+  }
+  #toast.show { transform: translateX(-50%) translateY(0); }
+  #toast.success { border-color: var(--green); color: var(--green); }
+  #toast.fail    { border-color: var(--red);   color: var(--red); }
+
+  /* ── Divider line ── */
+  .divider {
+    max-width: 720px;
+    margin: 0 auto 20px;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── Error msg ── */
+  .err-msg {
+    max-width: 720px;
+    margin: -10px auto 16px;
+    font-size: 12px;
+    color: var(--red);
+    padding: 0 4px;
+    display: none;
+  }
+  .err-msg.visible { display: block; }
 </style>
 </head>
 <body>
-<div class="wrap">
-<header><b>Renato</b><a href="#contatti">Contattami</a></header>
 
-<div class="hero">
-<div>
-<h1>Renato. La presa era già rotta a metà COGLIONE.</h1>
-<p>Renato si occupa di prese, interruttori e di tutto ciò che sporge dal muro. Quando arriva lui, la presa è già un po' messa male. Quando se ne va, picchia anche suo figlio.</p>
-<button class="cta" id="go">Prova a usare la presa</button>
-<div id="msg" aria-live="polite">La presa è lì. Sembra stabile. Non lo è.</div>
-</div>
-<div class="stage">
-<button id="socket" aria-label="Presa di corrente rotta a metà: clicca per romperla">
-<svg viewBox="0 0 300 300" id="svg">
-<rect x="20" y="20" width="260" height="260" rx="34" fill="#f3efe6"/>
-<rect x="34" y="34" width="232" height="232" rx="26" fill="none" stroke="#d6d0c2" stroke-width="3"/>
-<circle cx="150" cy="150" r="82" fill="#e4dfd1"/>
-<rect x="104" y="124" width="14" height="52" rx="4" fill="#14110f"/>
-<rect x="182" y="124" width="14" height="52" rx="4" fill="#14110f"/>
-<circle cx="150" cy="198" r="9" fill="#14110f"/>
-<polygon points="20,20 118,20 96,70 128,104 100,150 126,196 92,238 70,280 20,280" fill="#1f3a4d"/>
-<polyline points="118,20 96,70 128,104 100,150 126,196 92,238 70,280" fill="none" stroke="#8a8372" stroke-width="3"/>
-<polyline class="crack2" points="150,60 172,98 158,128 196,160 176,202 214,240" fill="none" stroke="#14110f" stroke-width="4" stroke-linejoin="round"/>
-<polyline class="crack2" points="250,34 232,76 244,104" fill="none" stroke="#14110f" stroke-width="3"/>
-<circle cx="45" cy="45" r="7" fill="#b9b2a2"/>
-<circle cx="255" cy="255" r="7" fill="#b9b2a2"/>
-</svg>
-</button>
-<div class="count">Prese rotte da Renato oggi: <b id="n">0</b></div>
-</div>
-</div>
+<header>
+  <div class="logo-line">
+    <div class="logo-icon">💰</div>
+    <h1>CHIUSURA CASSA</h1>
+  </div>
+  <p class="subtitle">Riepilogo giornaliero</p>
+</header>
+
+<!-- DATA & FONDO CASSA -->
+<div class="card">
+  <div class="card-title">Informazioni generali</div>
+  <div class="grid grid-2">
+    <div class="field">
+      <label>Data di oggi</label>
+      <input type="date" id="data" required>
+    </div>
+    <div class="field">
+      <label>Fondo cassa (€)</label>
+      <input type="number" id="fondo" placeholder="0.00" step="0.01" min="0" required>
+    </div>
+  </div>
 </div>
 
-<div class="tape"></div>
-
-<section>
-<div class="wrap">
-<h2>Cosa fa Renato</h2>
-<div class="rows">
-<div class="row"><b>Prese</b><span>Tocca, spinge, guarda. Se era già rotta a metà, la porta a tre quarti.</span></div>
-<div class="row"><b>Interruttori</b><span>Funzionano finché Renato non li accende.</span></div>
-<div class="row"><b>Piccole riparazioni</b><span>Le fa lui. Poi si chiama qualcun altro.</span></div>
-<div class="row"><b>Consulenza</b><span>"Io l'ho solo toccata." Gratis, e in abbondanza.</span></div>
+<!-- MONETE -->
+<div class="card">
+  <div class="card-title">Monete <span class="denom-tag tag-coin">spiccioli</span></div>
+  <div class="grid grid-3">
+    <div class="field"><label>1 cent</label><input type="number" id="m001" placeholder="0" step="0.01" min="0" required></div>
+    <div class="field"><label>2 cent</label><input type="number" id="m002" placeholder="0" step="0.01" min="0" required></div>
+    <div class="field"><label>5 cent</label><input type="number" id="m005" placeholder="0" step="0.01" min="0" required></div>
+    <div class="field"><label>10 cent</label><input type="number" id="m010" placeholder="0" step="0.01" min="0" required></div>
+    <div class="field"><label>20 cent</label><input type="number" id="m020" placeholder="0" step="0.01" min="0" required></div>
+    <div class="field"><label>50 cent</label><input type="number" id="m050" placeholder="0" step="0.01" min="0" required></div>
+    <div class="field"><label>1 €</label><input type="number" id="m100" placeholder="0" step="0.01" min="0" required></div>
+    <div class="field"><label>2 €</label><input type="number" id="m200" placeholder="0" step="0.01" min="0" required></div>
+  </div>
 </div>
-</div>
-</section>
 
-<section>
-<div class="wrap">
-<h2>Dicono di lui</h2>
-<blockquote>Papà non l'ha rotta. Era già rotta a metà. Lui ha solo finito il lavoro.
-<cite>Il figlio di Renato, testimone dei fatti</cite></blockquote>
+<!-- BANCONOTE -->
+<div class="card">
+  <div class="card-title">Banconote <span class="denom-tag tag-note">cartamoneta</span></div>
+  <div class="grid grid-3">
+    <div class="field"><label>5 €</label><input type="number" id="b005" placeholder="0" step="0.01" min="0" required></div>
+    <div class="field"><label>10 €</label><input type="number" id="b010" placeholder="0" step="0.01" min="0" required></div>
+    <div class="field"><label>20 €</label><input type="number" id="b020" placeholder="0" step="0.01" min="0" required></div>
+    <div class="field"><label>50 €</label><input type="number" id="b050" placeholder="0" step="0.01" min="0" required></div>
+    <div class="field"><label>100 €</label><input type="number" id="b100" placeholder="0" step="0.01" min="0" required></div>
+    <div class="field"><label>200 €</label><input type="number" id="b200" placeholder="0" step="0.01" min="0" required></div>
+    <div class="field"><label>500 €</label><input type="number" id="b500" placeholder="0" step="0.01" min="0" required></div>
+  </div>
 </div>
-</section>
 
-<section id="contatti">
-<div class="wrap">
-<h2>Contatta Renato</h2>
-<p style="max-width:32em;color:var(--mut);margin:0 0 22px">Hai una presa in buone condizioni? Meglio non dirgli dove sta. Hai una presa già rotta? Chiama un elettricista, poi chiama Renato per raccontargli com'è andata.</p>
-<a class="cta" href="mailto:renato@example.com">Scrivi a Renato</a>
+<!-- POS -->
+<div class="card">
+  <div class="card-title">Guadagno POS</div>
+  <div class="grid">
+    <div class="field">
+      <label>Totale POS (€)</label>
+      <input type="number" id="pos" placeholder="0.00" step="0.01" min="0" required>
+    </div>
+  </div>
 </div>
-</section>
 
-<footer><div class="wrap">© Renato. Nessuna presa è stata danneggiata per questo sito. Una sì, ma era già rotta.</div></footer>
+<p class="err-msg" id="errMsg">⚠️ Compila tutti i campi prima di calcolare.</p>
+
+<!-- CALCOLA -->
+<div class="btn-wrap">
+  <button class="calc" onclick="calcola()">CALCOLA CHIUSURA</button>
+</div>
+
+<!-- RISULTATI -->
+<div class="results" id="results">
+  <div class="result-grid">
+    <div class="result-card total">
+      <div class="result-label">Guadagno Totale</div>
+      <div class="result-value" id="rTotale">€ 0,00</div>
+    </div>
+    <div class="result-card cash">
+      <div class="result-label">Guadagno Contante</div>
+      <div class="result-value" id="rContante">€ 0,00</div>
+    </div>
+    <div class="result-card pos">
+      <div class="result-label">Guadagno POS</div>
+      <div class="result-value" id="rPOS">€ 0,00</div>
+    </div>
+  </div>
+  <div class="btn-wrap" style="margin-bottom:0">
+    <button class="btn-mail" id="btnMail" onclick="inviaMail()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      INVIA REPORT VIA EMAIL
+    </button>
+  </div>
+</div>
+
+<div id="toast"></div>
 
 <script>
-(function(){
-var lines=["Ecco: adesso è rotta a tre quarti.","Era già rotta a metà. Giuro.","Il figlio conferma: non è colpa di Renato.","Un'altra crepa. Ma la prima c'era già.","Renato dice che l'ha solo toccata.","Ormai è una questione di principio."];
-var n=0,i=0,el=document.getElementById('n'),msg=document.getElementById('msg'),sock=document.getElementById('socket');
-function hit(){
-n++;el.textContent=n;
-msg.textContent=lines[i++%lines.length];
-sock.classList.remove('shake');void sock.offsetWidth;sock.classList.add('shake');
-if(n>=2)document.getElementById('svg').classList.add('worse');
-}
-sock.addEventListener('click',hit);
-document.getElementById('go').addEventListener('click',hit);
-})();
+  // Imposta data di oggi di default
+  (function(){
+    const d = new Date();
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth()+1).padStart(2,'0');
+    const dd = String(d.getDate()).padStart(2,'0');
+    document.getElementById('data').value = `${yyyy}-${mm}-${dd}`;
+  })();
+
+  const IDS = ['data','fondo','m001','m002','m005','m010','m020','m050',
+               'm100','m200','b005','b010','b020','b050','b100','b200','b500','pos'];
+
+  let lastTotale=0, lastContante=0, lastPOS=0, lastData='';
+
+  function fmt(n){
+    return '€\u00a0' + n.toLocaleString('it-IT',{minimumFractionDigits:2,maximumFractionDigits:2});
+  }
+
+  function valida(){
+    let ok = true;
+    IDS.forEach(id => {
+      const el = document.getElementById(id);
+      const val = el.value.trim();
+      if(val === ''){
+        el.classList.add('error');
+        el.classList.remove('ok');
+        ok = false;
+      } else {
+        el.classList.remove('error');
+        el.classList.add('ok');
+      }
+    });
+    return ok;
+  }
+
+  // Rimuovi errore al riempimento
+  IDS.forEach(id => {
+    document.getElementById(id).addEventListener('input', function(){
+      if(this.value.trim() !== ''){
+        this.classList.remove('error');
+        this.classList.add('ok');
+        document.getElementById('errMsg').classList.remove('visible');
+      }
+    });
+  });
+
+  function calcola(){
+    if(!valida()){
+      document.getElementById('errMsg').classList.add('visible');
+      return;
+    }
+    document.getElementById('errMsg').classList.remove('visible');
+
+    const g = id => parseFloat(document.getElementById(id).value) || 0;
+
+    const monete = 
+    g('m001')*0.01+
+    g('m002')*0.02+
+    g('m005')*0.05+
+    g('m010')*0.10+
+    g('m020')*0.20+
+    g('m050')*0.50+
+    g('m100')*1+
+    g('m200')*2;
+    const banconote = 
+    g('b005')*5+
+    g('b010')*10+
+    g('b020')*20+
+    g('b050')*50+
+    g('b100')*100+
+    g('b200')*200+
+    g('b500')*500;
+    const fondo = g('fondo');
+    const pos   = g('pos');
+
+    const contante = monete + banconote - fondo;
+    const totale   = contante + pos;
+
+    lastTotale   = totale;
+    lastContante = contante;
+    lastPOS      = pos;
+    lastData     = document.getElementById('data').value;
+
+    document.getElementById('rTotale').textContent   = fmt(totale);
+    document.getElementById('rContante').textContent = fmt(contante);
+    document.getElementById('rPOS').textContent      = fmt(pos);
+
+    const res = document.getElementById('results');
+    res.classList.add('visible');
+    res.scrollIntoView({behavior:'smooth', block:'start'});
+    document.getElementById('btnMail').disabled = false;
+  }
+
+  function showToast(msg, type){
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'show ' + type;
+    setTimeout(()=>{ t.className = ''; }, 3500);
+  }
+
+  async function inviaMail(){
+    const btn = document.getElementById('btnMail');
+    btn.disabled = true;
+    btn.innerHTML = '⏳ Invio in corso…';
+
+    const dataFmt = lastData ? new Date(lastData+'T12:00:00').toLocaleDateString('it-IT') : '-';
+
+    const body = `to=davideiacuzio005%40gmail.com` +
+      `&subject=${encodeURIComponent('CHIUSURA CASSA - ' + dataFmt)}` +
+      `&message=${encodeURIComponent(
+        'CHIUSURA CASSA DEL ' + dataFmt + '\n\n' +
+        '─────────────────────────\n' +
+        'GUADAGNO TOTALE:    ' + fmt(lastTotale) + '\n' +
+        'GUADAGNO CONTANTE:  ' + fmt(lastContante) + '\n' +
+        'GUADAGNO POS:       ' + fmt(lastPOS) + '\n' +
+        '─────────────────────────\n'
+      )}`;
+
+    try {
+      const res = await fetch('https://formsubmit.co/ajax/davideiacuzio005@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Accept': 'application/json'
+        },
+        body: `_subject=${encodeURIComponent('CHIUSURA CASSA - ' + dataFmt)}` +
+              `&_captcha=false` +
+              `&_template=table` +
+              `&Data=${encodeURIComponent(dataFmt)}` +
+              `&Guadagno_Totale=${encodeURIComponent(fmt(lastTotale))}` +
+              `&Guadagno_Contante=${encodeURIComponent(fmt(lastContante))}` +
+              `&Guadagno_POS=${encodeURIComponent(fmt(lastPOS))}`
+      });
+      const json = await res.json();
+      if(json.success === 'true' || json.success === true){
+        showToast('✅ Report inviato a davideiacuzio005@gmail.com', 'success');
+      } else {
+        throw new Error('fail');
+      }
+    } catch(e){
+      showToast('❌ Errore nell\'invio. Riprova.', 'fail');
+    }
+
+    btn.disabled = false;
+    btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> INVIA REPORT VIA EMAIL`;
+  }
 </script>
 </body>
 </html>

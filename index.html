@@ -2,513 +2,298 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chiusura Cassa</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chiusura cassa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap');
-
   :root {
-    --bg:        #0d1117;
-    --surface:   #161b22;
-    --surface2:  #1e2530;
-    --border:    #2a3444;
-    --gold:      #c9a84c;
-    --gold-soft: #e8c97a;
-    --gold-dim:  rgba(201,168,76,0.12);
-    --text:      #e6edf3;
-    --text-dim:  #7d8590;
-    --green:     #3fb950;
-    --blue:      #58a6ff;
-    --red:       #f85149;
-    --radius:    12px;
-    --radius-sm: 8px;
+    --bg: #12171f;
+    --panel: #19202a;
+    --field: #202938;
+    --line: #2c3748;
+    --text: #eceff4;
+    --dim: #8b96a8;
+    --brass: #d3ad55;
+    --brass-ink: #1a1405;
+    --green: #5ec27a;
+    --blue: #6aaeff;
+    --red: #ff6b63;
+    color-scheme: dark;
   }
-
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #f2f3f5; --panel: #ffffff; --field: #f2f4f7; --line: #d9dee6;
+      --text: #161b24; --dim: #5d687a; --brass: #8f6b12; --brass-ink: #ffffff;
+      --green: #1f8a43; --blue: #1b6fd1; --red: #d3322b; color-scheme: light;
+    }
+  }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+  html { -webkit-text-size-adjust: 100%; }
   body {
-    font-family: 'Inter', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    padding: 24px 16px 60px;
+    font-family: 'Manrope', system-ui, sans-serif;
+    background: var(--bg); color: var(--text);
+    min-height: 100vh; line-height: 1.4;
+    padding: calc(20px + env(safe-area-inset-top, 0px)) 16px calc(48px + env(safe-area-inset-bottom, 0px));
+    font-variant-numeric: tabular-nums;
   }
+  main { max-width: 560px; margin: 0 auto; }
 
-  /* ── Header ── */
-  header {
-    text-align: center;
-    margin-bottom: 36px;
-  }
-  .logo-line {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 6px;
-  }
-  .logo-icon {
-    width: 40px; height: 40px;
-    background: var(--gold-dim);
-    border: 1.5px solid var(--gold);
-    border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 20px;
-  }
-  h1 {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: clamp(20px, 5vw, 28px);
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    color: var(--gold-soft);
-  }
-  .subtitle {
-    font-size: 13px;
-    color: var(--text-dim);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
+  header { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
+  h1 { font-size: 26px; font-weight: 800; letter-spacing: -0.02em; }
+  .sub { color: var(--dim); font-size: 14px; }
 
-  /* ── Card ── */
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 24px;
-    margin-bottom: 20px;
-    max-width: 720px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .card-title {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 18px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .card-title::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
+  section { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px 18px 6px; margin-bottom: 14px; }
+  .sec-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+  h2 { font-size: 16px; font-weight: 700; }
+  .sec-total { font-size: 15px; font-weight: 700; color: var(--brass); }
 
-  /* ── Grid ── */
-  .grid { display: grid; gap: 14px; }
-  .grid-2 { grid-template-columns: 1fr 1fr; }
-  .grid-3 { grid-template-columns: repeat(3, 1fr); }
-  @media (max-width: 540px) {
-    .grid-2, .grid-3 { grid-template-columns: 1fr 1fr; }
-  }
-  @media (max-width: 360px) {
-    .grid-2, .grid-3 { grid-template-columns: 1fr; }
-  }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding-bottom: 12px; }
+  .one { padding-bottom: 12px; }
+  .field label { display: block; font-size: 13px; color: var(--dim); margin-bottom: 6px; font-weight: 500; }
 
-  /* ── Field ── */
-  .field { display: flex; flex-direction: column; gap: 6px; }
-  .field label {
-    font-size: 11px;
-    font-weight: 500;
-    color: var(--text-dim);
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
+  input {
+    width: 100%; background: var(--field); border: 1.5px solid var(--line); border-radius: 10px;
+    color: var(--text); font: inherit; font-size: 16px; font-weight: 600; padding: 11px 12px;
+    outline: none; -moz-appearance: textfield; font-variant-numeric: tabular-nums;
   }
-  .field input {
-    background: var(--surface2);
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    color: var(--text);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 15px;
-    font-weight: 600;
-    padding: 10px 12px;
-    outline: none;
-    transition: border-color 0.15s, box-shadow 0.15s;
-    width: 100%;
-    -moz-appearance: textfield;
-  }
-  .field input::-webkit-outer-spin-button,
-  .field input::-webkit-inner-spin-button { -webkit-appearance: none; }
-  .field input:focus {
-    border-color: var(--gold);
-    box-shadow: 0 0 0 3px rgba(201,168,76,0.15);
-  }
-  .field input.error {
-    border-color: var(--red);
-    box-shadow: 0 0 0 3px rgba(248,81,73,0.15);
-  }
-  .field input.ok { border-color: var(--green); }
+  input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; }
+  input:focus-visible { border-color: var(--brass); box-shadow: 0 0 0 3px color-mix(in srgb, var(--brass) 25%, transparent); }
+  input.error { border-color: var(--red); box-shadow: 0 0 0 3px color-mix(in srgb, var(--red) 20%, transparent); }
 
-  /* date field */
-  .field input[type="date"] { color-scheme: dark; }
+  /* righe di conteggio: taglio | quantità | subtotale */
+  .row { display: grid; grid-template-columns: 64px 1fr 92px; align-items: center; gap: 12px; padding: 7px 0; border-top: 1px solid var(--line); }
+  .row:first-of-type { border-top: 0; }
+  .row label { font-weight: 700; font-size: 15px; }
+  .row input { padding: 9px 12px; text-align: right; }
+  .row .sub-amt { text-align: right; font-size: 14px; color: var(--dim); font-weight: 600; }
+  .row .sub-amt.on { color: var(--text); }
 
-  /* ── Denom tag ── */
-  .denom-tag {
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: 2px 6px;
-    border-radius: 4px;
-    margin-left: 4px;
-    vertical-align: middle;
-  }
-  .tag-coin { background: rgba(88,166,255,0.15); color: var(--blue); }
-  .tag-note { background: rgba(63,185,80,0.15); color: var(--green); }
+  #errMsg { color: var(--red); font-size: 14px; font-weight: 600; margin: 4px 2px 12px; display: none; }
+  #errMsg.visible { display: block; }
 
-  /* ── Button ── */
-  .btn-wrap {
-    max-width: 720px;
-    margin: 0 auto 24px;
-  }
-  button.calc {
-    width: 100%;
-    padding: 16px;
-    background: linear-gradient(135deg, #c9a84c, #a8862e);
-    border: none;
-    border-radius: var(--radius);
-    color: #0d1117;
-    font-family: 'Inter', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    cursor: pointer;
-    transition: opacity 0.15s, transform 0.1s;
-  }
-  button.calc:hover { opacity: 0.9; }
-  button.calc:active { transform: scale(0.99); }
+  .actions { display: grid; grid-template-columns: 1fr auto; gap: 10px; }
+  button { font: inherit; cursor: pointer; border-radius: 12px; font-weight: 700; font-size: 16px; padding: 15px; }
+  button:focus-visible { outline: 3px solid color-mix(in srgb, var(--brass) 50%, transparent); outline-offset: 2px; }
+  .primary { background: var(--brass); color: var(--brass-ink); border: 0; }
+  .primary:active { transform: scale(.99); }
+  .ghost { background: transparent; color: var(--dim); border: 1.5px solid var(--line); padding: 15px 18px; }
+  .ghost:hover { color: var(--text); }
 
-  /* ── Results ── */
-  .results {
-    max-width: 720px;
-    margin: 0 auto 24px;
-    display: none;
+  /* scontrino */
+  #results { display: none; margin-top: 18px; }
+  #results.visible { display: block; }
+  .receipt {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 22px 20px;
+    position: relative; overflow: hidden;
   }
-  .results.visible { display: block; }
-  .result-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
-    margin-bottom: 16px;
+  .receipt::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 8px;
+    background: radial-gradient(circle at 8px 8px, var(--bg) 5px, transparent 5.5px) 0 0 / 16px 8px repeat-x;
   }
-  @media (max-width: 560px) {
-    .result-grid { grid-template-columns: 1fr; }
-  }
-  .result-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 20px 16px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .result-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-  }
-  .result-card.total::before  { background: linear-gradient(90deg, var(--gold), var(--gold-soft)); }
-  .result-card.cash::before   { background: linear-gradient(90deg, var(--blue), #79c0ff); }
-  .result-card.pos::before    { background: linear-gradient(90deg, var(--green), #7ee787); }
-  .result-label {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text-dim);
-    margin-bottom: 10px;
-  }
-  .result-value {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: clamp(20px, 4vw, 28px);
-    font-weight: 700;
-    line-height: 1;
-  }
-  .result-card.total .result-value  { color: var(--gold-soft); }
-  .result-card.cash  .result-value  { color: var(--blue); }
-  .result-card.pos   .result-value  { color: var(--green); }
+  .receipt { padding-bottom: 28px; }
+  .r-date { color: var(--dim); font-size: 14px; }
+  .r-total-label { margin-top: 14px; font-size: 14px; color: var(--dim); font-weight: 600; }
+  .r-total { font-size: clamp(38px, 11vw, 54px); font-weight: 800; letter-spacing: -0.03em; color: var(--brass); line-height: 1.1; }
+  .r-line { display: flex; justify-content: space-between; align-items: baseline; padding: 12px 0; border-top: 1px dashed var(--line); font-size: 16px; }
+  .r-line:first-of-type { margin-top: 16px; }
+  .r-line span:first-child { color: var(--dim); font-weight: 500; }
+  .r-line b { font-weight: 700; }
+  #rContante { color: var(--blue); }
+  #rPOS { color: var(--green); }
+  #rContante.neg, #rTotale.neg { color: var(--red); }
 
-  /* ── Mail button ── */
-  .btn-mail {
-    width: 100%;
-    padding: 14px;
-    background: transparent;
-    border: 1.5px solid var(--gold);
-    border-radius: var(--radius);
-    color: var(--gold-soft);
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-    transition: background 0.15s, color 0.15s;
-    letter-spacing: 0.03em;
-  }
-  .btn-mail:hover { background: var(--gold-dim); }
-  .btn-mail:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-mail { width: 100%; margin-top: 12px; background: transparent; color: var(--text); border: 1.5px solid var(--brass); display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .btn-mail:hover { background: color-mix(in srgb, var(--brass) 12%, transparent); }
+  .btn-mail:disabled { opacity: .5; cursor: progress; }
 
-  /* ── Toast ── */
   #toast {
-    position: fixed;
-    bottom: 24px; left: 50%;
-    transform: translateX(-50%) translateY(80px);
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 12px 20px;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-    transition: transform 0.3s ease;
-    z-index: 100;
-    white-space: nowrap;
+    position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+    transform: translate(-50%, 120px); transition: transform .25s ease;
+    background: var(--panel); border: 1.5px solid var(--line); border-radius: 12px;
+    padding: 12px 18px; font-size: 14px; font-weight: 600; max-width: calc(100% - 32px); text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,.35); z-index: 10;
   }
-  #toast.show { transform: translateX(-50%) translateY(0); }
+  #toast.show { transform: translate(-50%, 0); }
   #toast.success { border-color: var(--green); color: var(--green); }
-  #toast.fail    { border-color: var(--red);   color: var(--red); }
+  #toast.fail { border-color: var(--red); color: var(--red); }
 
-  /* ── Divider line ── */
-  .divider {
-    max-width: 720px;
-    margin: 0 auto 20px;
-    height: 1px;
-    background: var(--border);
-  }
-
-  /* ── Error msg ── */
-  .err-msg {
-    max-width: 720px;
-    margin: -10px auto 16px;
-    font-size: 12px;
-    color: var(--red);
-    padding: 0 4px;
-    display: none;
-  }
-  .err-msg.visible { display: block; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
 </style>
 </head>
 <body>
+<main>
+  <header>
+    <h1>Chiusura cassa</h1>
+    <span class="sub">Riepilogo giornaliero</span>
+  </header>
 
-<header>
-  <div class="logo-line">
-    <div class="logo-icon">💰</div>
-    <h1>CHIUSURA CASSA</h1>
-  </div>
-  <p class="subtitle">Riepilogo giornaliero</p>
-</header>
-
-<!-- DATA & FONDO CASSA -->
-<div class="card">
-  <div class="card-title">Informazioni generali</div>
-  <div class="grid grid-2">
-    <div class="field">
-      <label>Data di oggi</label>
-      <input type="date" id="data" required>
+  <section>
+    <div class="sec-head"><h2>Dati della giornata</h2></div>
+    <div class="two">
+      <div class="field"><label for="data">Data</label><input type="date" id="data" required></div>
+      <div class="field"><label for="fondo">Fondo cassa (€)</label><input type="number" id="fondo" placeholder="0.00" step="0.01" min="0" inputmode="decimal" required></div>
     </div>
-    <div class="field">
-      <label>Fondo cassa (€)</label>
-      <input type="number" id="fondo" placeholder="0.00" step="0.01" min="0" required>
+  </section>
+
+  <section>
+    <div class="sec-head"><h2>Monete</h2><span class="sec-total" id="tMonete">€ 0,00</span></div>
+    <div id="listMonete"></div>
+  </section>
+
+  <section>
+    <div class="sec-head"><h2>Banconote</h2><span class="sec-total" id="tBanconote">€ 0,00</span></div>
+    <div id="listBanconote"></div>
+  </section>
+
+  <section>
+    <div class="sec-head"><h2>Incasso POS</h2></div>
+    <div class="one"><div class="field"><label for="pos">Totale POS (€)</label><input type="number" id="pos" placeholder="0.00" step="0.01" min="0" inputmode="decimal" required></div></div>
+  </section>
+
+  <p id="errMsg" role="alert">Compila tutti i campi evidenziati prima di calcolare.</p>
+
+  <div class="actions">
+    <button class="primary" onclick="calcola()">Calcola chiusura</button>
+    <button class="ghost" onclick="azzera()" title="Svuota tutti i campi">Azzera</button>
+  </div>
+
+  <div id="results" aria-live="polite">
+    <div class="receipt">
+      <div class="r-date" id="rData"></div>
+      <div class="r-total-label">Guadagno totale</div>
+      <div class="r-total" id="rTotale">€ 0,00</div>
+      <div class="r-line"><span>Guadagno contante</span><b id="rContante">€ 0,00</b></div>
+      <div class="r-line"><span>Guadagno POS</span><b id="rPOS">€ 0,00</b></div>
     </div>
+    <button class="btn-mail" id="btnMail" onclick="inviaMail()">Invia report via email</button>
   </div>
-</div>
+</main>
 
-<!-- MONETE -->
-<div class="card">
-  <div class="card-title">Monete <span class="denom-tag tag-coin">spiccioli</span></div>
-  <div class="grid grid-3">
-    <div class="field"><label>1 cent</label><input type="number" id="m001" placeholder="0" step="0.01" min="0" required></div>
-    <div class="field"><label>2 cent</label><input type="number" id="m002" placeholder="0" step="0.01" min="0" required></div>
-    <div class="field"><label>5 cent</label><input type="number" id="m005" placeholder="0" step="0.01" min="0" required></div>
-    <div class="field"><label>10 cent</label><input type="number" id="m010" placeholder="0" step="0.01" min="0" required></div>
-    <div class="field"><label>20 cent</label><input type="number" id="m020" placeholder="0" step="0.01" min="0" required></div>
-    <div class="field"><label>50 cent</label><input type="number" id="m050" placeholder="0" step="0.01" min="0" required></div>
-    <div class="field"><label>1 €</label><input type="number" id="m100" placeholder="0" step="0.01" min="0" required></div>
-    <div class="field"><label>2 €</label><input type="number" id="m200" placeholder="0" step="0.01" min="0" required></div>
-  </div>
-</div>
-
-<!-- BANCONOTE -->
-<div class="card">
-  <div class="card-title">Banconote <span class="denom-tag tag-note">cartamoneta</span></div>
-  <div class="grid grid-3">
-    <div class="field"><label>5 €</label><input type="number" id="b005" placeholder="0" step="0.01" min="0" required></div>
-    <div class="field"><label>10 €</label><input type="number" id="b010" placeholder="0" step="0.01" min="0" required></div>
-    <div class="field"><label>20 €</label><input type="number" id="b020" placeholder="0" step="0.01" min="0" required></div>
-    <div class="field"><label>50 €</label><input type="number" id="b050" placeholder="0" step="0.01" min="0" required></div>
-    <div class="field"><label>100 €</label><input type="number" id="b100" placeholder="0" step="0.01" min="0" required></div>
-    <div class="field"><label>200 €</label><input type="number" id="b200" placeholder="0" step="0.01" min="0" required></div>
-    <div class="field"><label>500 €</label><input type="number" id="b500" placeholder="0" step="0.01" min="0" required></div>
-  </div>
-</div>
-
-<!-- POS -->
-<div class="card">
-  <div class="card-title">Guadagno POS</div>
-  <div class="grid">
-    <div class="field">
-      <label>Totale POS (€)</label>
-      <input type="number" id="pos" placeholder="0.00" step="0.01" min="0" required>
-    </div>
-  </div>
-</div>
-
-<p class="err-msg" id="errMsg">⚠️ Compila tutti i campi prima di calcolare.</p>
-
-<!-- CALCOLA -->
-<div class="btn-wrap">
-  <button class="calc" onclick="calcola()">CALCOLA CHIUSURA</button>
-</div>
-
-<!-- RISULTATI -->
-<div class="results" id="results">
-  <div class="result-grid">
-    <div class="result-card total">
-      <div class="result-label">Guadagno Totale</div>
-      <div class="result-value" id="rTotale">€ 0,00</div>
-    </div>
-    <div class="result-card cash">
-      <div class="result-label">Guadagno Contante</div>
-      <div class="result-value" id="rContante">€ 0,00</div>
-    </div>
-    <div class="result-card pos">
-      <div class="result-label">Guadagno POS</div>
-      <div class="result-value" id="rPOS">€ 0,00</div>
-    </div>
-  </div>
-  <div class="btn-wrap" style="margin-bottom:0">
-    <button class="btn-mail" id="btnMail" onclick="inviaMail()">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-      INVIA REPORT VIA EMAIL
-    </button>
-  </div>
-</div>
-
-<div id="toast"></div>
+<div id="toast" role="status" aria-live="polite"></div>
 
 <script>
-  // Imposta data di oggi di default
+  const MONETE = [['m001','1 cent',0.01],['m002','2 cent',0.02],['m005','5 cent',0.05],['m010','10 cent',0.10],
+                  ['m020','20 cent',0.20],['m050','50 cent',0.50],['m100','1 €',1],['m200','2 €',2]];
+  const BANCONOTE = [['b005','5 €',5],['b010','10 €',10],['b020','20 €',20],['b050','50 €',50],
+                     ['b100','100 €',100],['b200','200 €',200],['b500','500 €',500]];
+
+  const IDS = ['data','fondo',...MONETE.map(x=>x[0]),...BANCONOTE.map(x=>x[0]),'pos'];
+  const $ = id => document.getElementById(id);
+  const g = id => parseFloat($(id).value) || 0;
+  const fmt = n => '€\u00a0' + n.toLocaleString('it-IT',{minimumFractionDigits:2,maximumFractionDigits:2});
+
+  function build(list, rows){
+    $(list).innerHTML = rows.map(([id,label]) =>
+      `<div class="row"><label for="${id}">${label}</label>` +
+      `<input type="number" id="${id}" placeholder="0" step="0.01" min="0" inputmode="decimal" required aria-label="Quantità ${label}">` +
+      `<span class="sub-amt" id="s_${id}">€ 0,00</span></div>`).join('');
+  }
+  build('listMonete', MONETE);
+  build('listBanconote', BANCONOTE);
+
+  // data di oggi di default
   (function(){
     const d = new Date();
-    const yyyy = d.getFullYear();
-    const mm = String(d.getMonth()+1).padStart(2,'0');
-    const dd = String(d.getDate()).padStart(2,'0');
-    document.getElementById('data').value = `${yyyy}-${mm}-${dd}`;
+    $('data').value = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
   })();
 
-  const IDS = ['data','fondo','m001','m002','m005','m010','m020','m050',
-               'm100','m200','b005','b010','b020','b050','b100','b200','b500','pos'];
+  // subtotali in tempo reale
+  function aggiornaSubtotali(){
+    let tm = 0, tb = 0;
+    MONETE.forEach(([id,,v]) => { const s = g(id)*v; tm += s; setSub(id, s); });
+    BANCONOTE.forEach(([id,,v]) => { const s = g(id)*v; tb += s; setSub(id, s); });
+    $('tMonete').textContent = fmt(tm);
+    $('tBanconote').textContent = fmt(tb);
+  }
+  function setSub(id, s){
+    const el = $('s_'+id);
+    el.textContent = fmt(s);
+    el.classList.toggle('on', s > 0);
+  }
 
   let lastTotale=0, lastContante=0, lastPOS=0, lastData='';
 
-  function fmt(n){
-    return '€\u00a0' + n.toLocaleString('it-IT',{minimumFractionDigits:2,maximumFractionDigits:2});
-  }
-
   function valida(){
-    let ok = true;
+    let ok = true, first = null;
     IDS.forEach(id => {
-      const el = document.getElementById(id);
-      const val = el.value.trim();
-      if(val === ''){
-        el.classList.add('error');
-        el.classList.remove('ok');
-        ok = false;
-      } else {
-        el.classList.remove('error');
-        el.classList.add('ok');
-      }
+      const el = $(id);
+      const vuoto = el.value.trim() === '';
+      el.classList.toggle('error', vuoto);
+      if(vuoto){ ok = false; if(!first) first = el; }
     });
+    if(first) first.focus({preventScroll:false});
     return ok;
   }
 
-  // Rimuovi errore al riempimento
   IDS.forEach(id => {
-    document.getElementById(id).addEventListener('input', function(){
+    $(id).addEventListener('input', function(){
       if(this.value.trim() !== ''){
         this.classList.remove('error');
-        this.classList.add('ok');
-        document.getElementById('errMsg').classList.remove('visible');
+        if(!document.querySelector('input.error')) $('errMsg').classList.remove('visible');
       }
+      aggiornaSubtotali();
+    });
+    // Invio passa al campo successivo
+    $(id).addEventListener('keydown', e => {
+      if(e.key !== 'Enter') return;
+      e.preventDefault();
+      const i = IDS.indexOf(id);
+      if(i < IDS.length-1) $(IDS[i+1]).focus(); else calcola();
     });
   });
 
   function calcola(){
-    if(!valida()){
-      document.getElementById('errMsg').classList.add('visible');
-      return;
-    }
-    document.getElementById('errMsg').classList.remove('visible');
+    if(!valida()){ $('errMsg').classList.add('visible'); return; }
+    $('errMsg').classList.remove('visible');
 
-    const g = id => parseFloat(document.getElementById(id).value) || 0;
-
-    const monete = 
-    g('m001')*0.01+
-    g('m002')*0.02+
-    g('m005')*0.05+
-    g('m010')*0.10+
-    g('m020')*0.20+
-    g('m050')*0.50+
-    g('m100')*1+
-    g('m200')*2;
-    const banconote = 
-    g('b005')*5+
-    g('b010')*10+
-    g('b020')*20+
-    g('b050')*50+
-    g('b100')*100+
-    g('b200')*200+
-    g('b500')*500;
+    const monete = MONETE.reduce((s,[id,,v]) => s + g(id)*v, 0);
+    const banconote = BANCONOTE.reduce((s,[id,,v]) => s + g(id)*v, 0);
     const fondo = g('fondo');
-    const pos   = g('pos');
+    const pos = g('pos');
 
     const contante = monete + banconote - fondo;
-    const totale   = contante + pos;
+    const totale = contante + pos;
 
-    lastTotale   = totale;
-    lastContante = contante;
-    lastPOS      = pos;
-    lastData     = document.getElementById('data').value;
+    lastTotale = totale; lastContante = contante; lastPOS = pos; lastData = $('data').value;
 
-    document.getElementById('rTotale').textContent   = fmt(totale);
-    document.getElementById('rContante').textContent = fmt(contante);
-    document.getElementById('rPOS').textContent      = fmt(pos);
+    $('rTotale').textContent = fmt(totale);
+    $('rContante').textContent = fmt(contante);
+    $('rPOS').textContent = fmt(pos);
+    $('rTotale').classList.toggle('neg', totale < 0);
+    $('rContante').classList.toggle('neg', contante < 0);
+    $('rData').textContent = lastData ? new Date(lastData+'T12:00:00').toLocaleDateString('it-IT',{weekday:'long',day:'numeric',month:'long',year:'numeric'}) : '';
 
-    const res = document.getElementById('results');
-    res.classList.add('visible');
-    res.scrollIntoView({behavior:'smooth', block:'start'});
-    document.getElementById('btnMail').disabled = false;
+    $('results').classList.add('visible');
+    $('results').scrollIntoView({behavior:'smooth', block:'start'});
+    $('btnMail').disabled = false;
   }
 
+  function azzera(){
+    if(!confirm('Svuotare tutti i campi?')) return;
+    IDS.forEach(id => { if(id !== 'data'){ $(id).value = ''; } $(id).classList.remove('error'); });
+    $('errMsg').classList.remove('visible');
+    $('results').classList.remove('visible');
+    aggiornaSubtotali();
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  let toastTimer;
   function showToast(msg, type){
-    const t = document.getElementById('toast');
+    const t = $('toast');
     t.textContent = msg;
     t.className = 'show ' + type;
-    setTimeout(()=>{ t.className = ''; }, 3500);
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { t.className = ''; }, 3500);
   }
 
   async function inviaMail(){
-    const btn = document.getElementById('btnMail');
+    const btn = $('btnMail');
     btn.disabled = true;
-    btn.innerHTML = '⏳ Invio in corso…';
+    btn.textContent = 'Invio in corso…';
 
     const dataFmt = lastData ? new Date(lastData+'T12:00:00').toLocaleDateString('it-IT') : '-';
-
-    const body = `to=davideiacuzio005%40gmail.com` +
-      `&subject=${encodeURIComponent('CHIUSURA CASSA - ' + dataFmt)}` +
-      `&message=${encodeURIComponent(
-        'CHIUSURA CASSA DEL ' + dataFmt + '\n\n' +
-        '─────────────────────────\n' +
-        'GUADAGNO TOTALE:    ' + fmt(lastTotale) + '\n' +
-        'GUADAGNO CONTANTE:  ' + fmt(lastContante) + '\n' +
-        'GUADAGNO POS:       ' + fmt(lastPOS) + '\n' +
-        '─────────────────────────\n'
-      )}`;
 
     try {
       const res = await fetch('https://formsubmit.co/ajax/davideiacuzio005@gmail.com', {
@@ -527,16 +312,16 @@
       });
       const json = await res.json();
       if(json.success === 'true' || json.success === true){
-        showToast('✅ Report inviato a davideiacuzio005@gmail.com', 'success');
+        showToast('Report inviato a davideiacuzio005@gmail.com', 'success');
       } else {
         throw new Error('fail');
       }
     } catch(e){
-      showToast('❌ Errore nell\'invio. Riprova.', 'fail');
+      showToast('Invio non riuscito. Controlla la connessione e riprova.', 'fail');
     }
 
     btn.disabled = false;
-    btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> INVIA REPORT VIA EMAIL`;
+    btn.textContent = 'Invia report via email';
   }
 </script>
 </body>

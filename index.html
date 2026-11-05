@@ -302,39 +302,27 @@ async function inviaMail(){
   btn.disabled = true;
   btn.textContent = 'Invio in corso…';
 
-  const dataFmt = lastData ? new Date(lastData+'T12:00:00').toLocaleDateString('it-IT') : '-';
   const r2 = n => Math.round(n*100)/100;
 
-  // 1) Email (come prima)
-  const mail = fetch('https://formsubmit.co/ajax/davideiacuzio005@gmail.com', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json' },
-    body: `_subject=${encodeURIComponent('CHIUSURA CASSA - ' + dataFmt)}` +
-          `&_captcha=false&_template=table` +
-          `&Data=${encodeURIComponent(dataFmt)}` +
-          `&Guadagno_Totale=${encodeURIComponent(fmt(lastTotale))}` +
-          `&Guadagno_Contante=${encodeURIComponent(fmt(lastContante))}` +
-          `&Guadagno_POS=${encodeURIComponent(fmt(lastPOS))}`
-  }).then(r => r.json()).then(j => j.success === true || j.success === 'true');
+  try {
+    const res = await fetch(SHEET_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `token=${encodeURIComponent(SHEET_TOKEN)}` +
+            `&dataISO=${encodeURIComponent(lastData)}` +
+            `&totale=${r2(lastTotale)}&contante=${r2(lastContante)}&pos=${r2(lastPOS)}`
+    });
+    const t = (await res.text()).trim();
 
-  // 2) Google Sheet
- const sheet = fetch(SHEET_URL, {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-  body: `token=${encodeURIComponent(SHEET_TOKEN)}` +
-        `&dataISO=${encodeURIComponent(lastData)}` +
-        `&totale=${r2(lastTotale)}&contante=${r2(lastContante)}&pos=${r2(lastPOS)}`
-}).then(r => r.text()).then(t => t.trim() === 'ok');
-
-  const [okMail, okSheet] = await Promise.all([mail.catch(() => false), sheet.catch(() => false)]);
-
-  if(okMail && okSheet)  showToast('Report inviato via email e salvato nel foglio', 'success');
-  else if(okMail)        showToast('Email inviata, ma il foglio non è stato aggiornato', 'fail');
-  else if(okSheet)       showToast('Foglio aggiornato, ma l’email non è partita', 'fail');
-  else                   showToast('Invio non riuscito. Controlla la connessione e riprova.', 'fail');
+    if(t === 'ok')                          showToast('Report inviato via email e salvato nel foglio', 'success');
+    else if(t === 'foglio-ok-mail-errore')  showToast('Foglio aggiornato, ma l’email non è partita', 'fail');
+    else                                    showToast('Errore: ' + t, 'fail');
+  } catch(e){
+    showToast('Invio non riuscito. Controlla la connessione e riprova.', 'fail');
+  }
 
   btn.disabled = false;
-  btn.textContent = 'Invia report via email';
+  btn.textContent = 'Invia report';
 }
 </script>
 </body>
